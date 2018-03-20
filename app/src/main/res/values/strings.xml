@@ -1,0 +1,18 @@
+<resources>
+    <string name="app_name">Film Ara</string>
+    <string name="warning">Uyarı</string>
+    <string name="no_internet_connection">İnternet bağlantısı kurulamadı. Lütfen ayarlarınızı kontrol ediniz.</string>
+    <string name="open_cellular">Mobil Veriyi Aç</string>
+    <string name="open_wifi">Wifiyi Aç</string>
+    <string name="app_exit">Uygulamayı Kapat</string>
+    <string name="details_rating_description">Movie Rating: %1$s</string>
+    <string name="details_director_subtitle">Director</string>
+    <string name="details_actors_subtitle">Actors</string>
+    <string name="details_awards_subtitle">Awards</string>
+    <string name="details_plot_subtitle">Plot</string>
+    <string name="movie_poster">Movie Poster</string>
+    <string name="empty_view">Film, Dizi Ara …</string>
+    <string name="search">Ara</string>
+    <string name="ig_matrix">ör. Matrix</string>
+    <string name="sans_serif">sans-serif</string>
+</resources>

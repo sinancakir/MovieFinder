@@ -1,0 +1,55 @@
+{
+  "project_info": {
+    "project_number": "970926102859",
+    "firebase_url": "https://loodos-d0339.firebaseio.com",
+    "project_id": "loodos-d0339",
+    "storage_bucket": "loodos-d0339.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:970926102859:android:380eb5e8e5084f7c",
+        "android_client_info": {
+          "package_name": "loodos.sinan.com.movies"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "970926102859-fhk7mvg8l6asi5umr4cngrl86i0lqinl.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "loodos.sinan.com.movies",
+            "certificate_hash": "561308e2feafc3f6b671a4644b153a27b2aaddfe"
+          }
+        },
+        {
+          "client_id": "970926102859-53ds0a4v5po40d11l8l4ttdvee55m09j.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyDkDa2xZxWotndxz8qVZ-p8_Pzi3SSMG9A"
+        }
+      ],
+      "services": {
+        "analytics_service": {
+          "status": 1
+        },
+        "appinvite_service": {
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "970926102859-53ds0a4v5po40d11l8l4ttdvee55m09j.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        },
+        "ads_service": {
+          "status": 2
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

@@ -1,0 +1,23 @@
+<resources>
+    <dimen name="activity_horizontal_margin">16dp</dimen>
+    <dimen name="activity_vertical_margin">16dp</dimen>
+    <dimen name="padding_small">4dp</dimen>
+    <dimen name="padding_medium">8dp</dimen>
+    <dimen name="padding_large">16dp</dimen>
+    <dimen name="progress_bar_size">60dp</dimen>
+    <dimen name="empty_screen_size">150dp</dimen>
+    <dimen name="empty_screen_margin_top">80dp</dimen>
+    <dimen name="monogram_width">40dp</dimen>
+    <dimen name="card_margin">3dp</dimen>
+    <dimen name="card_marginTop">1dp</dimen>
+    <dimen name="text_size">24sp</dimen>
+    <dimen name="zero_dp">0dp</dimen>
+    <dimen name="one_dp">1dp</dimen>
+    <dimen name="img_search">120dp</dimen>
+    <dimen name="progress">80dp</dimen>
+    <dimen name="dialog_text_size">18sp</dimen>
+    <dimen name="space">12dp</dimen>
+    <dimen name="year_margin">36dp</dimen>
+    <dimen name="poster_width">150dp</dimen>
+    <dimen name="poster_height">84dp</dimen>
+</resources>
