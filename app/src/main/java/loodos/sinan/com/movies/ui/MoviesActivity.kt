@@ -23,6 +23,7 @@ import io.androidedu.weatherwidget.core.network.VolleyService
 import loodos.sinan.com.movies.R
 import loodos.sinan.com.movies.adapter.MoviesAdapter
 import loodos.sinan.com.movies.enums.ApiRequest
+import loodos.sinan.com.movies.enums.Commons
 import loodos.sinan.com.movies.interfaces.MoviesClickListener
 import loodos.sinan.com.movies.interfaces.OnLoadMoreListener
 import loodos.sinan.com.movies.model.Search
@@ -108,26 +109,36 @@ class MoviesActivity : AppCompatActivity(), MoviesClickListener, Response.Listen
         VolleyService.build(this).requestQueue.start()
     }
 
+    private fun emptyView() {
+        recyclerView.visibility = View.GONE
+        imgSearch.visibility = View.VISIBLE
+        txtEmptyView.visibility = View.VISIBLE
+    }
+
+    private fun itemView() {
+        recyclerView.visibility = View.VISIBLE
+        imgSearch.visibility = View.GONE
+        txtEmptyView.visibility = View.GONE
+    }
+
     override fun onResponse(response: String) {
+
         isLoading = false
         val searchResponse: SearchResponse = Gson().fromJson(response, SearchResponse::class.java)
 
         try {
-            if (searchResponse.response.equals("False")) {
+            if (searchResponse.response.equals(Commons.False.toString())) {
 
-                if (searchResponse.error!!.contains("Movie not found")) {
+                if (searchResponse.error!!.contains(Commons.MovieNotFound.toString())) {
                     searchList?.removeAt(searchList?.size!!.minus(1))
                     moviesAdapter.notifyItemRemoved(searchList?.size!!)
                     progress.hide()
-                    recyclerView.visibility = View.GONE
-                    imgSearch.visibility = View.VISIBLE
-                    txtEmptyView.visibility = View.VISIBLE
+                    emptyView()
+                    Toast.makeText(this, searchResponse.error, Toast.LENGTH_LONG).show()
                     return
                 }
                 progress.hide()
-                recyclerView.visibility = View.GONE
-                imgSearch.visibility = View.VISIBLE
-                txtEmptyView.visibility = View.VISIBLE
+                emptyView()
                 Toast.makeText(this, searchResponse.error, Toast.LENGTH_LONG).show()
                 return
             }
@@ -143,9 +154,7 @@ class MoviesActivity : AppCompatActivity(), MoviesClickListener, Response.Listen
                 }
 
                 isFirstTime = false
-                recyclerView.visibility = View.VISIBLE
-                imgSearch.visibility = View.GONE
-                txtEmptyView.visibility = View.GONE
+                itemView()
             } else {
 
                 searchList?.removeAt(searchList?.size!!.minus(1))
@@ -156,9 +165,7 @@ class MoviesActivity : AppCompatActivity(), MoviesClickListener, Response.Listen
 
         } catch (ex: KotlinNullPointerException) {
             //Log.e(this.toString(), ex.message)
-            recyclerView.visibility = View.GONE
-            imgSearch.visibility = View.VISIBLE
-            txtEmptyView.visibility = View.VISIBLE
+            emptyView()
             Toast.makeText(this, searchResponse.error, Toast.LENGTH_LONG).show()
         }
         progress.hide()
@@ -171,7 +178,7 @@ class MoviesActivity : AppCompatActivity(), MoviesClickListener, Response.Listen
 
     override fun onMoviesClickListener(imdbId: String) {
         val intent = Intent(this, MovieDetailActivity::class.java)
-        intent.putExtra("imdbId", imdbId)
+        intent.putExtra(ApiRequest.ImdbId.toString(), imdbId)
         startActivity(intent)
     }
 

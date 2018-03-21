@@ -4,12 +4,12 @@ import android.animation.Animator
 import android.content.Intent
 import android.content.IntentFilter
 import android.net.ConnectivityManager
-import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
 import android.support.animation.DynamicAnimation
 import android.support.animation.SpringAnimation
 import android.support.animation.SpringForce
+import android.support.v7.app.AppCompatActivity
 import android.util.DisplayMetrics
 import android.view.animation.DecelerateInterpolator
 import android.widget.TextView
@@ -21,6 +21,7 @@ import com.google.firebase.remoteconfig.FirebaseRemoteConfigSettings
 import kotlinx.android.synthetic.main.activity_splash.*
 import loodos.sinan.com.movies.BuildConfig
 import loodos.sinan.com.movies.R
+import loodos.sinan.com.movies.enums.Commons
 import loodos.sinan.com.movies.receivers.InternetConnectionReceiver
 
 
@@ -44,9 +45,22 @@ class SplashActivity : AppCompatActivity(), OnCompleteListener<Void> {
         mFirebaseRemoteConfig.setDefaults(R.xml.remote_config)
     }
 
+    // fetch from firebase remote config
+    fun fetch() {
+        var cacheExpiration: Long = 3600
+        if (mFirebaseRemoteConfig.info.configSettings.isDeveloperModeEnabled) {
+            cacheExpiration = 0
+        }
+
+        // addOnCompleteListener sends onComplete inteface
+        mFirebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(this)
+    }
+
+    // Splash Activity Animation
     private fun showAnim() {
         Handler().postDelayed({
             springForce = SpringForce(0f)
+            // linear_layout -> kotlin synthetic import
             linear_layout.pivotX = 0f
             linear_layout.pivotY = 0f
             val springAnim = SpringAnimation(linear_layout, DynamicAnimation.ROTATION).apply {
@@ -57,10 +71,8 @@ class SplashActivity : AppCompatActivity(), OnCompleteListener<Void> {
             springAnim.setStartValue(80f)
             springAnim.addEndListener(object : DynamicAnimation.OnAnimationEndListener {
                 override fun onAnimationEnd(animation: DynamicAnimation<out DynamicAnimation<*>>?, canceled: Boolean, value: Float, velocity: Float) {
-
+                    // if internet is available then start animation
                     if (internetConnectionReceiver.isNetworkAvailable) {
-
-
                         val displayMetrics = DisplayMetrics()
                         windowManager.defaultDisplay.getMetrics(displayMetrics)
                         val height = displayMetrics.heightPixels.toFloat()
@@ -75,8 +87,6 @@ class SplashActivity : AppCompatActivity(), OnCompleteListener<Void> {
                                     }
 
                                     override fun onAnimationEnd(p0: Animator?) {
-
-
                                         val intent = Intent(applicationContext, MoviesActivity::class.java)
                                         finish()
                                         startActivity(intent)
@@ -115,24 +125,16 @@ class SplashActivity : AppCompatActivity(), OnCompleteListener<Void> {
         unregisterReceiver(internetConnectionReceiver)
     }
 
-    fun fetch() {
-        var cacheExpiration: Long = 3600
-        if (mFirebaseRemoteConfig.info.configSettings.isDeveloperModeEnabled) {
-            cacheExpiration = 0
-        }
-
-        mFirebaseRemoteConfig.fetch(cacheExpiration).addOnCompleteListener(this)
-    }
-
+    // firebase remote config interface
     override fun onComplete(task: Task<Void>) {
         if (task.isSuccessful) {
 
             mFirebaseRemoteConfig.activateFetched()
-            //linear_layout.setBackgroundColor(Color.parseColor(mFirebaseRemoteConfig.getString("backgroundColor")))
-            txtLogo.text = mFirebaseRemoteConfig.getString("textLogo")
+            //linear_layout.setBackgroundColor(Color.parseColor(mFirebaseRemoteConfig.getString(Commons.SplashColor.toString())))
+            txtLogo.text = mFirebaseRemoteConfig.getString(Commons.TextLogo.toString())
             showAnim()
         } else {
-            Toast.makeText(this, "Fetch Failed", Toast.LENGTH_SHORT).show()
+            Toast.makeText(this, Commons.LogoNotFound.toString(), Toast.LENGTH_SHORT).show()
         }
     }
 }

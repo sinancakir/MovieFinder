@@ -20,5 +20,10 @@ enum class ApiRequest {
         override fun toString(): String {
             return "http://www.omdbapi.com/?i="
         }
+    },
+    ImdbId {
+        override fun toString(): String {
+            return "imdbId"
+        }
     }
 }

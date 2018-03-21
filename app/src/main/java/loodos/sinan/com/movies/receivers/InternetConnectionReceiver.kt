@@ -30,7 +30,10 @@ class InternetConnectionReceiver(private val context: AppCompatActivity) : Broad
 
     override fun onReceive(context: Context, arg1: Intent) {
 
+        // for fetch process in Splash activity
+        // if internet is available, do fetch fun
         isNetworkAvailable = networkControl()
+
         if (context is SplashActivity) {
 
             if (isNetworkAvailable) {
@@ -55,6 +58,7 @@ class InternetConnectionReceiver(private val context: AppCompatActivity) : Broad
                 return true
             }
         }
+
         createDialog()
 
         return false

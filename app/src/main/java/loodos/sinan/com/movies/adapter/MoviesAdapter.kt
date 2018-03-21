@@ -30,6 +30,7 @@ class MoviesAdapter(private val context: Context,
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): RecyclerView.ViewHolder {
 
+        // for api request pagination
         return if (viewType == VIEW_TYPE_ITEM) {
 
             val view = LayoutInflater.from(parent.context).inflate(R.layout.movie_list_item, parent, false)
@@ -42,11 +43,11 @@ class MoviesAdapter(private val context: Context,
         }
     }
 
-    override fun getItemCount(): Int{
+    override fun getItemCount(): Int {
 
-        return if(searchList == null || searchList?.size == null){
+        return if (searchList == null || searchList?.size == null) {
             0
-        }else{
+        } else {
             searchList?.size!!
         }
     }

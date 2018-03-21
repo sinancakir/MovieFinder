@@ -11,6 +11,7 @@ import android.view.View
 import android.widget.ImageView
 import android.widget.RatingBar
 import android.widget.TextView
+import android.widget.Toast
 import com.android.volley.*
 import com.android.volley.toolbox.StringRequest
 import com.bumptech.glide.Glide
@@ -55,7 +56,7 @@ class MovieDetailActivity : AppCompatActivity(), Response.Listener<String>, Resp
 
         supportActionBar!!.setBackgroundDrawable(ColorDrawable(ContextCompat.getColor(this, R.color.app_bar)))
 
-        val imdbId = intent.getStringExtra("imdbId")
+        val imdbId = intent.getStringExtra(ApiRequest.ImdbId.toString())
 
         sendRequest(ApiRequest.MovieDetailUrl.toString() + imdbId + ApiRequest.ApiKey.toString())
     }
@@ -103,6 +104,7 @@ class MovieDetailActivity : AppCompatActivity(), Response.Listener<String>, Resp
                 return false
             }
         }).into(poster)
+
         title.text = movie.title
         if (movie.imdbRating != "N/A")
             ratingBar.rating = movie.imdbRating.toFloat() / 2
@@ -135,5 +137,6 @@ class MovieDetailActivity : AppCompatActivity(), Response.Listener<String>, Resp
 
     override fun onErrorResponse(error: VolleyError?) {
         VolleyLog.e("onErrorResponse" + error?.message)
+        Toast.makeText(this, error?.message, Toast.LENGTH_LONG).show()
     }
 }
