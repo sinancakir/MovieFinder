@@ -121,6 +121,7 @@ class MoviesActivity : AppCompatActivity(), MoviesClickListener, Response.Listen
         txtEmptyView.visibility = View.GONE
     }
 
+    // volley response
     override fun onResponse(response: String) {
 
         isLoading = false
@@ -171,25 +172,30 @@ class MoviesActivity : AppCompatActivity(), MoviesClickListener, Response.Listen
         progress.hide()
     }
 
+    // volley error response
     override fun onErrorResponse(error: VolleyError?) {
         VolleyLog.e("onErrorResponse" + error?.message)
         Toast.makeText(this, error?.message, Toast.LENGTH_LONG).show()
     }
 
+    // movies item click interface
     override fun onMoviesClickListener(imdbId: String) {
         val intent = Intent(this, MovieDetailActivity::class.java)
         intent.putExtra(ApiRequest.ImdbId.toString(), imdbId)
         startActivity(intent)
     }
 
+    // Material Search Bar interface
     override fun onButtonClicked(buttonCode: Int) {
 
     }
 
+    // Material Search Bar interface
     override fun onSearchStateChanged(enabled: Boolean) {
 
     }
 
+    // Material Search Bar interface
     override fun onSearchConfirmed(text: CharSequence?) {
         /*val inputManager = getSystemService(Context.INPUT_METHOD_SERVICE) as InputMethodManager
         inputManager.hideSoftInputFromInputMethod(searchBar.windowToken, 0)*/
@@ -202,6 +208,7 @@ class MoviesActivity : AppCompatActivity(), MoviesClickListener, Response.Listen
         sendRequest(ApiRequest.MoviesUrl.toString() + query + ApiRequest.ApiKey)
     }
 
+    // api request pagination interface
     override fun onLoadMore() {
 
         searchList?.add(null)
